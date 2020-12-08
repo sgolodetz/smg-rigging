@@ -7,41 +7,47 @@ from smg.rigging.cameras.moveable_camera import MoveableCamera
 
 
 class KeyboardCameraController:
-    """TODO"""
+    """A camera controller that moves the camera around based on keyboard input from the user."""
 
-    def __init__(self, camera: MoveableCamera, up, *, angular_speed: float = 0.03,
-                 canonical_frame_time_ms: float = 16.0, linear_speed: float = 1.0):
+    def __init__(self, camera: MoveableCamera, up, *, canonical_angular_speed: float = 0.03,
+                 canonical_frame_time_ms: float = 16.0, canonical_linear_speed: float = 1.0):
         """
-        Construct a camera controller.
+        Construct a keyboard camera controller.
 
         :param camera:                  The camera to control.
-        :param up:                      TODO
-        :param angular_speed:           TODO
-        :param canonical_frame_time_ms: TODO
-        :param linear_speed:            TODO
+        :param up:                      The "up" direction for the camera.
+        :param canonical_angular_speed: The desired angular speed (in radians) for the canonical frame time.
+        :param canonical_frame_time_ms: The canonical frame time (in ms).
+        :param canonical_linear_speed:  The desired linear speed for the canonical frame time.
         """
-        self.__angular_speed: float = angular_speed
         self.__camera: MoveableCamera = camera
+        self.__canonical_angular_speed: float = canonical_angular_speed
         self.__canonical_frame_time_ms: float = canonical_frame_time_ms
-        self.__linear_speed: float = linear_speed
+        self.__canonical_linear_speed: float = canonical_linear_speed
         self.__prev_time_ms: Optional[float] = None
         self.__up: np.ndarray = np.array(up, dtype=np.float64)
 
     def __call__(self, pressed_keys, time_ms: float) -> None:
-        # TODO
+        """
+        Move the camera around based on keyboard input from the user.
+
+        :param pressed_keys:    The keys that are currently pressed.
+        :param time_ms:         The current time (in ms).
+        """
+        # If this is the first occasion on which this function has been called, we can't calculate elapsed time yet,
+        # so simply store the current time and return.
         if self.__prev_time_ms is None:
             self.__prev_time_ms = time_ms
             return
 
-        # TODO
+        # Calculate the time that has elapsed since this function was last called,
+        # and scale the angular and linear speeds accordingly.
         scaling_factor: float = (time_ms - self.__prev_time_ms) / self.__canonical_frame_time_ms
+        angular_speed: float = self.__canonical_angular_speed * scaling_factor
+        linear_speed: float = self.__canonical_linear_speed * scaling_factor
         self.__prev_time_ms = time_ms
 
-        # TODO
-        angular_speed: float = self.__angular_speed * scaling_factor
-        linear_speed: float = self.__linear_speed * scaling_factor
-
-        # TODO
+        # Apply linear movements to the camera as needed.
         if pressed_keys[pygame.K_w]:
             self.__camera.move_n(linear_speed)
         if pressed_keys[pygame.K_s]:
@@ -55,7 +61,7 @@ class KeyboardCameraController:
         if pressed_keys[pygame.K_e]:
             self.__camera.move(self.__up, -linear_speed)
 
-        # TODO
+        # Apply angular movements to the camera as needed.
         if pressed_keys[pygame.K_RIGHT]:
             self.__camera.rotate(self.__up, -angular_speed)
         if pressed_keys[pygame.K_LEFT]:
