@@ -4,30 +4,58 @@ import pygame
 from typing import Optional
 
 from smg.rigging.cameras.moveable_camera import MoveableCamera
+from smg.rigging.helpers.camera_pose_converter import CameraPoseConverter
 
 
 class KeyboardCameraController:
     """A camera controller that moves the camera around based on keyboard input from the user."""
 
-    def __init__(self, camera: MoveableCamera, up, *, canonical_angular_speed: float = 0.03,
-                 canonical_frame_time_ms: float = 16.0, canonical_linear_speed: float = 1.0):
+    # CONSTRUCTOR
+
+    def __init__(self, camera: MoveableCamera, *, canonical_angular_speed: float = 0.03,
+                 canonical_frame_time_ms: float = 16.0, canonical_linear_speed: float = 1.0, up=None):
         """
         Construct a keyboard camera controller.
 
+        .. note::
+            If the "up" direction is not explicitly specified, it will default to the up direction of the camera.
+
         :param camera:                  The camera to control.
-        :param up:                      The "up" direction for the camera.
         :param canonical_angular_speed: The desired angular speed (in radians) for the canonical frame time.
         :param canonical_frame_time_ms: The canonical frame time (in ms).
         :param canonical_linear_speed:  The desired linear speed for the canonical frame time.
+        :param up:                      An optional "up" direction for rotations.
         """
         self.__camera: MoveableCamera = camera
         self.__canonical_angular_speed: float = canonical_angular_speed
         self.__canonical_frame_time_ms: float = canonical_frame_time_ms
         self.__canonical_linear_speed: float = canonical_linear_speed
         self.__prev_time_ms: Optional[float] = None
-        self.__up: np.ndarray = np.array(up, dtype=np.float64)
 
-    def __call__(self, pressed_keys, time_ms: float) -> None:
+        if up is not None:
+            self.__up: np.ndarray = np.array(up, dtype=np.float64)
+        else:
+            self.__up: np.ndarray = self.__camera.v()
+
+    # PUBLIC METHODS
+
+    def get_camera(self) -> MoveableCamera:
+        """
+        Get the camera that is being controlled.
+
+        :return:    The camera that is being controlled.
+        """
+        return self.__camera
+
+    def get_pose(self) -> np.ndarray:
+        """
+        Get the pose of the camera that is being controlled.
+
+        :return:    The pose of the camera that is being controlled.
+        """
+        return CameraPoseConverter.camera_to_pose(self.__camera)
+
+    def update(self, pressed_keys, time_ms: float) -> None:
         """
         Move the camera around based on keyboard input from the user.
 
@@ -56,9 +84,9 @@ class KeyboardCameraController:
             self.__camera.move_u(-linear_speed)
         if pressed_keys[pygame.K_a]:
             self.__camera.move_u(linear_speed)
-        if pressed_keys[pygame.K_q]:
+        if pressed_keys[pygame.K_q] and not pressed_keys[pygame.K_LSHIFT]:
             self.__camera.move(self.__up, linear_speed)
-        if pressed_keys[pygame.K_e]:
+        if pressed_keys[pygame.K_e] and not pressed_keys[pygame.K_LSHIFT]:
             self.__camera.move(self.__up, -linear_speed)
 
         # Apply angular movements to the camera as needed.
@@ -70,3 +98,11 @@ class KeyboardCameraController:
             self.__camera.rotate(self.__camera.u(), angular_speed)
         if pressed_keys[pygame.K_DOWN]:
             self.__camera.rotate(self.__camera.u(), -angular_speed)
+        if pressed_keys[pygame.K_q] and pressed_keys[pygame.K_LSHIFT]:
+            self.__camera.rotate(self.__camera.n(), -angular_speed)
+        if pressed_keys[pygame.K_e] and pressed_keys[pygame.K_LSHIFT]:
+            self.__camera.rotate(self.__camera.n(), angular_speed)
+
+        # Allow the user to change the "up" direction used for rotations.
+        if pressed_keys[pygame.K_g]:
+            self.__up = self.__camera.v()
