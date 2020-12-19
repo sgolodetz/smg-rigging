@@ -1,6 +1,6 @@
 import numpy as np
 
-from smg.rigging.cameras import Camera, SimpleCamera
+from ...rigging.cameras import Camera, SimpleCamera
 
 
 class CameraPoseConverter:

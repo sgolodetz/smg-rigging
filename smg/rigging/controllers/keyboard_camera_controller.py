@@ -3,8 +3,8 @@ import pygame
 
 from typing import Optional
 
-from smg.rigging.cameras.moveable_camera import MoveableCamera
-from smg.rigging.helpers.camera_pose_converter import CameraPoseConverter
+from ..cameras.moveable_camera import MoveableCamera
+from ..helpers.camera_pose_converter import CameraPoseConverter
 
 
 class KeyboardCameraController:
