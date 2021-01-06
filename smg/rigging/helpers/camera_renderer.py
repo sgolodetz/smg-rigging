@@ -3,7 +3,7 @@ import numpy as np
 from OpenGL.GL import *
 from typing import Optional, Tuple
 
-from smg.opengl import OpenGLUtil
+from smg.opengl import OpenGLMatrixContext, OpenGLUtil
 
 from ...rigging.cameras import Camera
 
@@ -45,35 +45,32 @@ class CameraRenderer:
             glPolygonMode(GL_FRONT_AND_BACK, GL_FILL)
 
         # Render the camera's axes.
-        glMatrixMode(GL_MODELVIEW)
-        glPushMatrix()
-        glTranslatef(*p)
-        glBegin(GL_LINES)
+        with OpenGLMatrixContext(GL_MODELVIEW, lambda: glTranslatef(*p)):
+            glBegin(GL_LINES)
 
-        if axes_type == CameraRenderer.AXES_NUV:
-            glColor3f(1.0, 1.0, 0.0)
-            glVertex3f(*origin)
-            glVertex3f(*u)
+            if axes_type == CameraRenderer.AXES_NUV:
+                glColor3f(1.0, 1.0, 0.0)
+                glVertex3f(*origin)
+                glVertex3f(*u)
 
-            glColor3f(0.0, 1.0, 1.0)
-            glVertex3f(*origin)
-            glVertex3f(*v)
+                glColor3f(0.0, 1.0, 1.0)
+                glVertex3f(*origin)
+                glVertex3f(*v)
 
-            glColor3f(1.0, 0.0, 1.0)
-            glVertex3f(*origin)
-            glVertex3f(*n)
-        else:  # AXES_XYZ
-            glColor3f(1.0, 0.0, 0.0)
-            glVertex3f(*origin)
-            glVertex3f(*(-u))
+                glColor3f(1.0, 0.0, 1.0)
+                glVertex3f(*origin)
+                glVertex3f(*n)
+            else:  # AXES_XYZ
+                glColor3f(1.0, 0.0, 0.0)
+                glVertex3f(*origin)
+                glVertex3f(*(-u))
 
-            glColor3f(0.0, 1.0, 0.0)
-            glVertex3f(*origin)
-            glVertex3f(*(-v))
+                glColor3f(0.0, 1.0, 0.0)
+                glVertex3f(*origin)
+                glVertex3f(*(-v))
 
-            glColor3f(0.0, 0.0, 1.0)
-            glVertex3f(*origin)
-            glVertex3f(*n)
+                glColor3f(0.0, 0.0, 1.0)
+                glVertex3f(*origin)
+                glVertex3f(*n)
 
-        glEnd()
-        glPopMatrix()
+            glEnd()
