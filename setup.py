@@ -17,8 +17,8 @@ setup(
     install_requires=[
         "numpy",
         "pygame",
-        "PyOpenGL",
         "scipy",
+        "smg-opengl",
         "vg"
     ],
     classifiers=[
