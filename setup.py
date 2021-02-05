@@ -18,7 +18,6 @@ setup(
         "numpy",
         "pygame",
         "scipy",
-        "smg-opengl",
         "vg"
     ],
     classifiers=[
