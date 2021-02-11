@@ -1,5 +1,3 @@
-from __future__ import annotations
-
 import numpy as np
 import vg
 
@@ -34,7 +32,7 @@ class SimpleCamera(MoveableCamera):
 
     # PUBLIC METHODS
 
-    def move(self, direction: np.ndarray, delta: float) -> SimpleCamera:
+    def move(self, direction: np.ndarray, delta: float) -> "SimpleCamera":
         """
         Move the camera by the specified displacement in the specified direction.
 
@@ -45,7 +43,7 @@ class SimpleCamera(MoveableCamera):
         self.__position += delta * direction
         return self
 
-    def move_n(self, delta: float) -> SimpleCamera:
+    def move_n(self, delta: float) -> "SimpleCamera":
         """
         Move the camera by the specified displacement in the n direction.
 
@@ -55,7 +53,7 @@ class SimpleCamera(MoveableCamera):
         self.__position += delta * self.__n
         return self
 
-    def move_u(self, delta: float) -> SimpleCamera:
+    def move_u(self, delta: float) -> "SimpleCamera":
         """
         Move the camera by the specified displacement in the u direction.
 
@@ -65,7 +63,7 @@ class SimpleCamera(MoveableCamera):
         self.__position += delta * self.__u
         return self
 
-    def move_v(self, delta: float) -> SimpleCamera:
+    def move_v(self, delta: float) -> "SimpleCamera":
         """
         Move the camera by the specified displacement in the v direction.
 
@@ -91,7 +89,7 @@ class SimpleCamera(MoveableCamera):
         """
         return self.__position
 
-    def rotate(self, axis, angle: float) -> SimpleCamera:
+    def rotate(self, axis, angle: float) -> "SimpleCamera":
         """
         Rotate the camera anti-clockwise by the specified angle about the specified axis.
 
@@ -105,7 +103,7 @@ class SimpleCamera(MoveableCamera):
         self.__v = r @ self.__v
         return self
 
-    def set_from(self, rhs: Camera) -> SimpleCamera:
+    def set_from(self, rhs: Camera) -> "SimpleCamera":
         """
         Set the position and orientation of this camera to match those of another camera.
 

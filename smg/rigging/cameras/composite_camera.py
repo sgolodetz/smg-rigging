@@ -1,5 +1,3 @@
-from __future__ import annotations
-
 import numpy as np
 
 from typing import Dict
@@ -67,7 +65,7 @@ class CompositeCamera(MoveableCamera):
         """
         return self.__secondary_cameras
 
-    def move(self, direction: np.ndarray, delta: float) -> CompositeCamera:
+    def move(self, direction: np.ndarray, delta: float) -> "CompositeCamera":
         """
         Move the camera by the specified displacement in the specified direction.
 
@@ -78,7 +76,7 @@ class CompositeCamera(MoveableCamera):
         self.__primary_camera.move(direction, delta)
         return self
 
-    def move_n(self, delta: float) -> CompositeCamera:
+    def move_n(self, delta: float) -> "CompositeCamera":
         """
         Move the camera by the specified displacement in the n direction.
 
@@ -88,7 +86,7 @@ class CompositeCamera(MoveableCamera):
         self.__primary_camera.move_n(delta)
         return self
 
-    def move_u(self, delta: float) -> CompositeCamera:
+    def move_u(self, delta: float) -> "CompositeCamera":
         """
         Move the camera by the specified displacement in the u direction.
 
@@ -98,7 +96,7 @@ class CompositeCamera(MoveableCamera):
         self.__primary_camera.move_u(delta)
         return self
 
-    def move_v(self, delta: float) -> CompositeCamera:
+    def move_v(self, delta: float) -> "CompositeCamera":
         """
         Move the camera by the specified displacement in the v direction.
 
@@ -136,7 +134,7 @@ class CompositeCamera(MoveableCamera):
         else:
             raise RuntimeError(f"The composite does not contain a camera named '{name}'")
 
-    def rotate(self, axis, angle: float) -> CompositeCamera:
+    def rotate(self, axis, angle: float) -> "CompositeCamera":
         """
         Rotate the camera anti-clockwise by the specified angle about the specified axis.
 
@@ -147,7 +145,7 @@ class CompositeCamera(MoveableCamera):
         self.__primary_camera.rotate(axis, angle)
         return self
 
-    def set_from(self, rhs: Camera) -> CompositeCamera:
+    def set_from(self, rhs: Camera) -> "CompositeCamera":
         """
         Set the position and orientation of this camera to match those of another camera.
 
