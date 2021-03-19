@@ -2,7 +2,7 @@ import numpy as np
 
 
 from .camera_pose_converter import CameraPoseConverter
-from ..cameras.camera import Camera
+from ..cameras import Camera, SimpleCamera
 
 
 class CameraUtil:
@@ -60,3 +60,12 @@ class CameraUtil:
             CameraPoseConverter.pose_to_camera(pose1),
             CameraPoseConverter.pose_to_camera(pose2)
         )
+
+    @staticmethod
+    def make_default_camera() -> SimpleCamera:
+        """
+        Make a default camera.
+
+        :return:    The default camera.
+        """
+        return SimpleCamera([0, 0, 0], [0, 0, 1], [0, -1, 0])
