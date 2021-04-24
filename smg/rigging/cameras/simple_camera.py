@@ -1,5 +1,3 @@
-# -*- coding: future_annotations -*-
-
 import numpy as np
 import vg
 
@@ -22,12 +20,16 @@ class SimpleCamera(MoveableCamera):
         :param look:        A vector pointing in the direction faced by the camera.
         :param up:          The "up" direction for the camera.
         """
-        self.__position: np.ndarray = np.array(position, dtype=np.float64)
-        self.__n: np.ndarray = vg.normalize(np.array(look, dtype=np.float64))
-        self.__v: np.ndarray = vg.normalize(np.array(up, dtype=np.float64))
+        # : np.ndarray
+        self.__position = np.array(position, dtype=np.float64)
+        # : np.ndarray
+        self.__n = vg.normalize(np.array(look, dtype=np.float64))
+        # : np.ndarray
+        self.__v = vg.normalize(np.array(up, dtype=np.float64))
 
         # Compute the camera's u axis from the up vector that was passed in and its n axis.
-        self.__u: np.ndarray = vg.normalize(np.cross(self.__v, self.__n))
+        # : np.ndarray
+        self.__u = vg.normalize(np.cross(self.__v, self.__n))
 
         # Compute the camera's v axis from its n and u axes.
         self.__v = vg.normalize(np.cross(self.__n, self.__u))
@@ -35,7 +37,7 @@ class SimpleCamera(MoveableCamera):
     # PUBLIC METHODS
 
     # noinspection PyUnresolvedReferences
-    def move(self, direction: np.ndarray, delta: float) -> SimpleCamera:
+    def move(self, direction: np.ndarray, delta: float) -> "SimpleCamera":
         """
         Move the camera by the specified displacement in the specified direction.
 
@@ -47,7 +49,7 @@ class SimpleCamera(MoveableCamera):
         return self
 
     # noinspection PyUnresolvedReferences
-    def move_n(self, delta: float) -> SimpleCamera:
+    def move_n(self, delta: float) -> "SimpleCamera":
         """
         Move the camera by the specified displacement in the n direction.
 
@@ -58,7 +60,7 @@ class SimpleCamera(MoveableCamera):
         return self
 
     # noinspection PyUnresolvedReferences
-    def move_u(self, delta: float) -> SimpleCamera:
+    def move_u(self, delta: float) -> "SimpleCamera":
         """
         Move the camera by the specified displacement in the u direction.
 
@@ -69,7 +71,7 @@ class SimpleCamera(MoveableCamera):
         return self
 
     # noinspection PyUnresolvedReferences
-    def move_v(self, delta: float) -> SimpleCamera:
+    def move_v(self, delta: float) -> "SimpleCamera":
         """
         Move the camera by the specified displacement in the v direction.
 
@@ -96,7 +98,7 @@ class SimpleCamera(MoveableCamera):
         return self.__position
 
     # noinspection PyUnresolvedReferences
-    def rotate(self, axis, angle: float) -> SimpleCamera:
+    def rotate(self, axis, angle: float) -> "SimpleCamera":
         """
         Rotate the camera anti-clockwise by the specified angle about the specified axis.
 
@@ -104,14 +106,15 @@ class SimpleCamera(MoveableCamera):
         :param angle:   The angle by which to rotate (in radians).
         :return:        This camera, after it has been rotated.
         """
-        r: np.ndarray = Rotation.from_rotvec(np.array(axis, dtype=np.float64) * angle).as_matrix()
+        # : np.ndarray
+        r = Rotation.from_rotvec(np.array(axis, dtype=np.float64) * angle).as_matrix()
         self.__n = r @ self.__n
         self.__u = r @ self.__u
         self.__v = r @ self.__v
         return self
 
     # noinspection PyUnresolvedReferences
-    def set_from(self, rhs: Camera) -> SimpleCamera:
+    def set_from(self, rhs: Camera) -> "SimpleCamera":
         """
         Set the position and orientation of this camera to match those of another camera.
 

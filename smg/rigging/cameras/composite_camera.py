@@ -1,5 +1,3 @@
-# -*- coding: future_annotations -*-
-
 import numpy as np
 
 from typing import Dict
@@ -27,8 +25,10 @@ class CompositeCamera(MoveableCamera):
         :param look:        A vector pointing in the direction faced by the camera.
         :param up:          The "up" direction for the camera.
         """
-        self.__primary_camera: SimpleCamera = SimpleCamera(position, look, up)
-        self.__secondary_cameras: Dict[str, Camera] = {}
+        # : SimpleCamera
+        self.__primary_camera = SimpleCamera(position, look, up)
+        # : Dict[str, Camera]
+        self.__secondary_cameras = {}
 
     # PUBLIC METHODS
 
@@ -43,7 +43,8 @@ class CompositeCamera(MoveableCamera):
         if self.__secondary_cameras.get(name) is None:
             self.__secondary_cameras[name] = camera
         else:
-            raise RuntimeError(f"The composite already contains a camera named '{name}'")
+            # raise RuntimeError(f"The composite already contains a camera named '{name}'")
+            raise RuntimeError("The composite already contains a camera named '{}'".format(name))
 
     def get_secondary_camera(self, name: str) -> Camera:
         """
@@ -53,11 +54,13 @@ class CompositeCamera(MoveableCamera):
         :return:                The secondary camera with the specified name, if it exists.
         :raises RuntimeError:   If the composite does not contain a camera with the specified name.
         """
-        camera: Camera = self.__secondary_cameras.get(name)
+        # : Camera
+        camera = self.__secondary_cameras.get(name)
         if camera is not None:
             return camera
         else:
-            raise RuntimeError(f"The composite does not contain a camera named '{name}'")
+            # raise RuntimeError(f"The composite does not contain a camera named '{name}'")
+            raise RuntimeError("The composite does not contain a camera named '{}'".format(name))
 
     def get_secondary_cameras(self) -> Dict[str, Camera]:
         """
@@ -68,7 +71,7 @@ class CompositeCamera(MoveableCamera):
         return self.__secondary_cameras
 
     # noinspection PyUnresolvedReferences
-    def move(self, direction: np.ndarray, delta: float) -> CompositeCamera:
+    def move(self, direction: np.ndarray, delta: float) -> "CompositeCamera":
         """
         Move the camera by the specified displacement in the specified direction.
 
@@ -80,7 +83,7 @@ class CompositeCamera(MoveableCamera):
         return self
 
     # noinspection PyUnresolvedReferences
-    def move_n(self, delta: float) -> CompositeCamera:
+    def move_n(self, delta: float) -> "CompositeCamera":
         """
         Move the camera by the specified displacement in the n direction.
 
@@ -91,7 +94,7 @@ class CompositeCamera(MoveableCamera):
         return self
 
     # noinspection PyUnresolvedReferences
-    def move_u(self, delta: float) -> CompositeCamera:
+    def move_u(self, delta: float) -> "CompositeCamera":
         """
         Move the camera by the specified displacement in the u direction.
 
@@ -102,7 +105,7 @@ class CompositeCamera(MoveableCamera):
         return self
 
     # noinspection PyUnresolvedReferences
-    def move_v(self, delta: float) -> CompositeCamera:
+    def move_v(self, delta: float) -> "CompositeCamera":
         """
         Move the camera by the specified displacement in the v direction.
 
@@ -138,10 +141,11 @@ class CompositeCamera(MoveableCamera):
         if self.__secondary_cameras.get(name) is not None:
             del self.__secondary_cameras[name]
         else:
-            raise RuntimeError(f"The composite does not contain a camera named '{name}'")
+            # raise RuntimeError(f"The composite does not contain a camera named '{name}'")
+            raise RuntimeError("The composite does not contain a camera named '{}'".format(name))
 
     # noinspection PyUnresolvedReferences
-    def rotate(self, axis, angle: float) -> CompositeCamera:
+    def rotate(self, axis, angle: float) -> "CompositeCamera":
         """
         Rotate the camera anti-clockwise by the specified angle about the specified axis.
 
@@ -153,7 +157,7 @@ class CompositeCamera(MoveableCamera):
         return self
 
     # noinspection PyUnresolvedReferences
-    def set_from(self, rhs: Camera) -> CompositeCamera:
+    def set_from(self, rhs: Camera) -> "CompositeCamera":
         """
         Set the position and orientation of this camera to match those of another camera.
 

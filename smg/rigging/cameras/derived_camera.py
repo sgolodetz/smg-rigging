@@ -18,9 +18,12 @@ class DerivedCamera(Camera):
         :param trans:       The *camera-space* (u-v-n) translation from the base camera's axes to those of the
                             derived camera.
         """
-        self.__base_camera: Camera = base_camera
-        self.__rot: np.ndarray = rot
-        self.__trans: np.ndarray = np.array(trans, dtype=np.float64)
+        # : Camera
+        self.__base_camera = base_camera
+        # : np.ndarray
+        self.__rot = rot
+        # : np.ndarray
+        self.__trans = np.array(trans, dtype=np.float64)
 
     # PUBLIC METHODS
 
@@ -69,7 +72,8 @@ class DerivedCamera(Camera):
         """
         # Construct a matrix that can transform (free) vectors from camera space into world space.
         # For example, m * (1,0,0)^T = u.
-        m: np.ndarray = np.column_stack((self.__base_camera.u(), self.__base_camera.v(), self.__base_camera.n()))
+        # : np.ndarray
+        m = np.column_stack((self.__base_camera.u(), self.__base_camera.v(), self.__base_camera.n()))
 
         # Use it to turn our camera-space rotation matrix into a world-space one.
         return m @ self.__rot @ np.linalg.inv(m)
