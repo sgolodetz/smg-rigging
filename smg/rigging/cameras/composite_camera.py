@@ -1,6 +1,6 @@
 import numpy as np
 
-from typing import Dict
+from typing import Dict, Optional
 
 from .camera import Camera
 from .moveable_camera import MoveableCamera
@@ -25,10 +25,8 @@ class CompositeCamera(MoveableCamera):
         :param look:        A vector pointing in the direction faced by the camera.
         :param up:          The "up" direction for the camera.
         """
-        # : SimpleCamera
-        self.__primary_camera = SimpleCamera(position, look, up)
-        # : Dict[str, Camera]
-        self.__secondary_cameras = {}
+        self.__primary_camera = SimpleCamera(position, look, up)  # type: SimpleCamera
+        self.__secondary_cameras = {}  # type: Dict[str, Camera]
 
     # PUBLIC METHODS
 
@@ -54,12 +52,10 @@ class CompositeCamera(MoveableCamera):
         :return:                The secondary camera with the specified name, if it exists.
         :raises RuntimeError:   If the composite does not contain a camera with the specified name.
         """
-        # : Camera
-        camera = self.__secondary_cameras.get(name)
+        camera = self.__secondary_cameras.get(name)  # type: Optional[Camera]
         if camera is not None:
             return camera
         else:
-            # raise RuntimeError(f"The composite does not contain a camera named '{name}'")
             raise RuntimeError("The composite does not contain a camera named '{}'".format(name))
 
     def get_secondary_cameras(self) -> Dict[str, Camera]:
@@ -141,7 +137,6 @@ class CompositeCamera(MoveableCamera):
         if self.__secondary_cameras.get(name) is not None:
             del self.__secondary_cameras[name]
         else:
-            # raise RuntimeError(f"The composite does not contain a camera named '{name}'")
             raise RuntimeError("The composite does not contain a camera named '{}'".format(name))
 
     # noinspection PyUnresolvedReferences

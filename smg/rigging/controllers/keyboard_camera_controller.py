@@ -26,23 +26,16 @@ class KeyboardCameraController:
         :param canonical_linear_speed:  The desired linear speed for the canonical frame time.
         :param up:                      An optional "up" direction for rotations.
         """
-        # : MoveableCamera
-        self.__camera = camera
-        # : float
-        self.__canonical_angular_speed = canonical_angular_speed
-        # : float
-        self.__canonical_frame_time_ms = canonical_frame_time_ms
-        # : float
-        self.__canonical_linear_speed = canonical_linear_speed
-        # : Optional[float]
-        self.__prev_time_ms = None
+        self.__camera = camera  # type: MoveableCamera
+        self.__canonical_angular_speed = canonical_angular_speed  # type: float
+        self.__canonical_frame_time_ms = canonical_frame_time_ms  # type: float
+        self.__canonical_linear_speed = canonical_linear_speed  # type: float
+        self.__prev_time_ms = None  # type: Optional[float]
 
         if up is not None:
-            # : np.ndarray
-            self.__up = np.array(up, dtype=np.float64)
+            self.__up = np.array(up, dtype=np.float64)  # type: np.ndarray
         else:
-            # : np.ndarray
-            self.__up = self.__camera.v()
+            self.__up = self.__camera.v()  # type: np.ndarray
 
     # PUBLIC METHODS
 
@@ -77,12 +70,9 @@ class KeyboardCameraController:
 
         # Calculate the time that has elapsed since this function was last called,
         # and scale the angular and linear speeds accordingly.
-        # : float
-        scaling_factor = (time_ms - self.__prev_time_ms) / self.__canonical_frame_time_ms
-        # : float
-        angular_speed = self.__canonical_angular_speed * scaling_factor
-        # : float
-        linear_speed = self.__canonical_linear_speed * scaling_factor
+        scaling_factor = (time_ms - self.__prev_time_ms) / self.__canonical_frame_time_ms  # type: float
+        angular_speed = self.__canonical_angular_speed * scaling_factor  # type: float
+        linear_speed = self.__canonical_linear_speed * scaling_factor  # type: float
         self.__prev_time_ms = time_ms
 
         # Apply linear movements to the camera as needed.
