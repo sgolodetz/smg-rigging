@@ -1,6 +1,5 @@
 import numpy as np
 
-
 from .camera_pose_converter import CameraPoseConverter
 from ..cameras import Camera, SimpleCamera
 
