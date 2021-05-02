@@ -20,12 +20,12 @@ class SimpleCamera(MoveableCamera):
         :param look:        A vector pointing in the direction faced by the camera.
         :param up:          The "up" direction for the camera.
         """
-        self.__position = np.array(position, dtype=np.float64)  # type: np.ndarray
+        self.__position = np.array(position, dtype=np.float64)     # type: np.ndarray
         self.__n = vg.normalize(np.array(look, dtype=np.float64))  # type: np.ndarray
-        self.__v = vg.normalize(np.array(up, dtype=np.float64))  # type: np.ndarray
+        self.__v = vg.normalize(np.array(up, dtype=np.float64))    # type: np.ndarray
 
         # Compute the camera's u axis from the up vector that was passed in and its n axis.
-        self.__u = vg.normalize(np.cross(self.__v, self.__n))  # type: np.ndarray
+        self.__u = vg.normalize(np.cross(self.__v, self.__n))      # type: np.ndarray
 
         # Compute the camera's v axis from its n and u axes.
         self.__v = vg.normalize(np.cross(self.__n, self.__u))

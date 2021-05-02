@@ -26,7 +26,7 @@ class CompositeCamera(MoveableCamera):
         :param up:          The "up" direction for the camera.
         """
         self.__primary_camera = SimpleCamera(position, look, up)  # type: SimpleCamera
-        self.__secondary_cameras = {}  # type: Dict[str, Camera]
+        self.__secondary_cameras = {}                             # type: Dict[str, Camera]
 
     # PUBLIC METHODS
 
@@ -41,7 +41,6 @@ class CompositeCamera(MoveableCamera):
         if self.__secondary_cameras.get(name) is None:
             self.__secondary_cameras[name] = camera
         else:
-            # raise RuntimeError(f"The composite already contains a camera named '{name}'")
             raise RuntimeError("The composite already contains a camera named '{}'".format(name))
 
     def get_secondary_camera(self, name: str) -> Camera:

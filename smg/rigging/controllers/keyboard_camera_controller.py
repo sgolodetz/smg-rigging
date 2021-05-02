@@ -26,16 +26,16 @@ class KeyboardCameraController:
         :param canonical_linear_speed:  The desired linear speed for the canonical frame time.
         :param up:                      An optional "up" direction for rotations.
         """
-        self.__camera = camera  # type: MoveableCamera
+        self.__camera = camera                                    # type: MoveableCamera
         self.__canonical_angular_speed = canonical_angular_speed  # type: float
         self.__canonical_frame_time_ms = canonical_frame_time_ms  # type: float
-        self.__canonical_linear_speed = canonical_linear_speed  # type: float
-        self.__prev_time_ms = None  # type: Optional[float]
+        self.__canonical_linear_speed = canonical_linear_speed    # type: float
+        self.__prev_time_ms = None                                # type: Optional[float]
 
         if up is not None:
-            self.__up = np.array(up, dtype=np.float64)  # type: np.ndarray
+            self.__up = np.array(up, dtype=np.float64)            # type: np.ndarray
         else:
-            self.__up = self.__camera.v()  # type: np.ndarray
+            self.__up = self.__camera.v()                         # type: np.ndarray
 
     # PUBLIC METHODS
 

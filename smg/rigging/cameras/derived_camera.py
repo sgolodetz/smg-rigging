@@ -18,8 +18,8 @@ class DerivedCamera(Camera):
         :param trans:       The *camera-space* (u-v-n) translation from the base camera's axes to those of the
                             derived camera.
         """
-        self.__base_camera = base_camera  # type: Camera
-        self.__rot = rot  # type: np.ndarray
+        self.__base_camera = base_camera                  # type: Camera
+        self.__rot = rot                                  # type: np.ndarray
         self.__trans = np.array(trans, dtype=np.float64)  # type: np.ndarray
 
     # PUBLIC METHODS
