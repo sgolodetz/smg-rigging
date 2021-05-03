@@ -10,7 +10,6 @@ class MoveableCamera(Camera, ABC):
 
     # PUBLIC ABSTRACT METHODS
 
-    # noinspection PyUnresolvedReferences
     @abstractmethod
     def move(self, direction: np.ndarray, delta: float) -> "MoveableCamera":
         """
@@ -21,7 +20,6 @@ class MoveableCamera(Camera, ABC):
         """
         pass
 
-    # noinspection PyUnresolvedReferences
     @abstractmethod
     def move_n(self, delta: float) -> "MoveableCamera":
         """
@@ -32,7 +30,6 @@ class MoveableCamera(Camera, ABC):
         """
         pass
 
-    # noinspection PyUnresolvedReferences
     @abstractmethod
     def move_u(self, delta: float) -> "MoveableCamera":
         """
@@ -43,7 +40,6 @@ class MoveableCamera(Camera, ABC):
         """
         pass
 
-    # noinspection PyUnresolvedReferences
     @abstractmethod
     def move_v(self, delta: float) -> "MoveableCamera":
         """
@@ -54,7 +50,6 @@ class MoveableCamera(Camera, ABC):
         """
         pass
 
-    # noinspection PyUnresolvedReferences
     @abstractmethod
     def rotate(self, axis, angle: float) -> "MoveableCamera":
         """
@@ -66,7 +61,6 @@ class MoveableCamera(Camera, ABC):
         """
         pass
 
-    # noinspection PyUnresolvedReferences
     @abstractmethod
     def set_from(self, rhs: Camera) -> "MoveableCamera":
         """

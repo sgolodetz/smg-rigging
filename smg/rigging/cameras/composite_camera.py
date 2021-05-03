@@ -65,7 +65,6 @@ class CompositeCamera(MoveableCamera):
         """
         return self.__secondary_cameras
 
-    # noinspection PyUnresolvedReferences
     def move(self, direction: np.ndarray, delta: float) -> "CompositeCamera":
         """
         Move the camera by the specified displacement in the specified direction.
@@ -77,7 +76,6 @@ class CompositeCamera(MoveableCamera):
         self.__primary_camera.move(direction, delta)
         return self
 
-    # noinspection PyUnresolvedReferences
     def move_n(self, delta: float) -> "CompositeCamera":
         """
         Move the camera by the specified displacement in the n direction.
@@ -88,7 +86,6 @@ class CompositeCamera(MoveableCamera):
         self.__primary_camera.move_n(delta)
         return self
 
-    # noinspection PyUnresolvedReferences
     def move_u(self, delta: float) -> "CompositeCamera":
         """
         Move the camera by the specified displacement in the u direction.
@@ -99,7 +96,6 @@ class CompositeCamera(MoveableCamera):
         self.__primary_camera.move_u(delta)
         return self
 
-    # noinspection PyUnresolvedReferences
     def move_v(self, delta: float) -> "CompositeCamera":
         """
         Move the camera by the specified displacement in the v direction.
@@ -138,7 +134,6 @@ class CompositeCamera(MoveableCamera):
         else:
             raise RuntimeError("The composite does not contain a camera named '{}'".format(name))
 
-    # noinspection PyUnresolvedReferences
     def rotate(self, axis, angle: float) -> "CompositeCamera":
         """
         Rotate the camera anti-clockwise by the specified angle about the specified axis.
@@ -150,7 +145,6 @@ class CompositeCamera(MoveableCamera):
         self.__primary_camera.rotate(axis, angle)
         return self
 
-    # noinspection PyUnresolvedReferences
     def set_from(self, rhs: Camera) -> "CompositeCamera":
         """
         Set the position and orientation of this camera to match those of another camera.

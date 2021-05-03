@@ -71,8 +71,8 @@ class KeyboardCameraController:
         # Calculate the time that has elapsed since this function was last called,
         # and scale the angular and linear speeds accordingly.
         scaling_factor = (time_ms - self.__prev_time_ms) / self.__canonical_frame_time_ms  # type: float
-        angular_speed = self.__canonical_angular_speed * scaling_factor  # type: float
-        linear_speed = self.__canonical_linear_speed * scaling_factor  # type: float
+        angular_speed = self.__canonical_angular_speed * scaling_factor                    # type: float
+        linear_speed = self.__canonical_linear_speed * scaling_factor                      # type: float
         self.__prev_time_ms = time_ms
 
         # Apply linear movements to the camera as needed.
