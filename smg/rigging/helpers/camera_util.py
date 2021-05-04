@@ -1,6 +1,5 @@
 import numpy as np
 
-
 from .camera_pose_converter import CameraPoseConverter
 from ..cameras import Camera, SimpleCamera
 
@@ -19,7 +18,7 @@ class CameraUtil:
         :param cam2:    The second camera.
         :return:        The rotation between the look vectors of the two cameras.
         """
-        d: float = np.clip(np.dot(cam1.n(), cam2.n()), -1.0, 1.0)
+        d = np.clip(np.dot(cam1.n(), cam2.n()), -1.0, 1.0)  # type: float
         return np.rad2deg(np.arccos(d))
 
     @staticmethod

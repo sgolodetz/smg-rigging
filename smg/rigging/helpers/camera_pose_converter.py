@@ -18,7 +18,7 @@ class CameraPoseConverter:
         """
         # See the corresponding function in SemanticPaint for an explanation, if one is needed.
         n, p, u, v = camera.n(), camera.p(), camera.u(), camera.v()
-        pose: np.ndarray = np.eye(4)
+        pose = np.eye(4)  # type: np.ndarray
         pose[0:3, 0:3] = np.vstack((-u, -v, n))
         pose[0:3, 3] = [p.dot(u), p.dot(v), -p.dot(n)]
         return pose
@@ -32,7 +32,7 @@ class CameraPoseConverter:
         :return:        A camera with the specified pose.
         """
         # See the corresponding function in SemanticPaint for an explanation, if one is needed.
-        inv_pose: np.ndarray = np.linalg.inv(pose)
+        inv_pose = np.linalg.inv(pose)  # type: np.ndarray
         return SimpleCamera(inv_pose[0:3, 3], inv_pose[0:3, 2], inv_pose[0:3, 1])
 
     @staticmethod
@@ -43,6 +43,6 @@ class CameraPoseConverter:
         :param pose:    The pose matrix.
         :return:        The model-view matrix.
         """
-        m: np.ndarray = pose.copy()
+        m = pose.copy()  # type: np.ndarray
         m[1:3, :] *= -1
         return m
