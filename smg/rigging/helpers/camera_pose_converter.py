@@ -33,7 +33,7 @@ class CameraPoseConverter:
         """
         # See the corresponding function in SemanticPaint for an explanation, if one is needed.
         inv_pose = np.linalg.inv(pose)  # type: np.ndarray
-        return SimpleCamera(inv_pose[0:3, 3], inv_pose[0:3, 2], inv_pose[0:3, 1])
+        return SimpleCamera(inv_pose[0:3, 3], inv_pose[0:3, 2], -inv_pose[0:3, 1])
 
     @staticmethod
     def pose_to_modelview(pose: np.ndarray) -> np.ndarray:
