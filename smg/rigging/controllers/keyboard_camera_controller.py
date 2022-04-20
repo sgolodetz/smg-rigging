@@ -1,7 +1,7 @@
 import numpy as np
 import pygame
 
-from typing import Optional
+from typing import Optional, Sequence
 
 from ..cameras.moveable_camera import MoveableCamera
 from ..helpers.camera_pose_converter import CameraPoseConverter
@@ -55,7 +55,7 @@ class KeyboardCameraController:
         """
         return CameraPoseConverter.camera_to_pose(self.__camera)
 
-    def update(self, pressed_keys, time_ms: float) -> None:
+    def update(self, pressed_keys: Sequence[bool], time_ms: float) -> None:
         """
         Move the camera around based on keyboard input from the user.
 
