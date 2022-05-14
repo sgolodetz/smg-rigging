@@ -24,6 +24,18 @@ class CameraPoseConverter:
         return pose
 
     @staticmethod
+    def modelview_to_pose(modelview: np.ndarray) -> np.ndarray:
+        """
+        Convert a model-view matrix to a pose matrix.
+
+        :param modelview:   The model-view matrix.
+        :return:            The pose matrix.
+        """
+        m = modelview.copy()  # type: np.ndarray
+        m[1:3, :] *= -1
+        return m
+
+    @staticmethod
     def pose_to_camera(pose: np.ndarray) -> SimpleCamera:
         """
         Convert a pose matrix to a camera.
